@@ -10,7 +10,7 @@ import { Subject } from "rxjs/Subject";
             <form (ngSubmit)="onSubmit()">
                 <label for="city">City</label>
                 <input ngControl="location" type="text" id="city" (input)="onSearchLocation(input.value)" required #input>
-                <button btn btn-primary type="submit">Add City</button>
+                <button class="btn btn-success" type="submit">Add City</button>
             </form>
             <div>
                 <span class="info">City found:</span> {{data.name}}
@@ -30,6 +30,7 @@ export class WeatherSearchComponent implements OnInit {
             description: this.data.weather[0].description,
             temperature: this.data.main.temp
         }
+        console.log(weatherItem);
         this._weatherService.addWeatherItem(weatherItem);
     }
 
@@ -42,7 +43,8 @@ export class WeatherSearchComponent implements OnInit {
         this.searchStream
             .debounceTime(300)
             .distinctUntilChanged()
-            .switchMap((input:string) => this._weatherService.searchWeatherData(input))
+            .switchMap((input:string) =>
+                this._weatherService.searchWeatherData(input))
             .subscribe(
               data => this.data = data
             );

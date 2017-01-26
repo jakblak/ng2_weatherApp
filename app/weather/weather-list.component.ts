@@ -19,7 +19,7 @@ export class WeatherListComponent implements OnInit {
 
     constructor(private _weatherService: WeatherService) {}
 
-    ngOnInit():any {
+    ngOnInit():void {
         this.weatherItems = this._weatherService.getWeatherItems();
     }
 }

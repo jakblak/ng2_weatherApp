@@ -30,11 +30,11 @@
                                type="submit">Save to Profile</button>
             </form>
 
-          <div class="well" *ngIf="data">
-            <h2>{{ weatherItem?.cityName }}</h2>
+          <div class="well" *ngIf="weatherItem">
+            <h2>{{ weatherItem?.name }}</h2>
             <p><span class="label label-primary">Temp </span>&nbsp;
-                {{ weatherItem?.temperature }}°F</p>
+                {{ weatherItem?.main.temp }}°F</p>
             <p><span class="label label-info">Outlook </span>&nbsp;
-                {{ weatherItem?.description }}</p>
+                {{ weatherItem?.weather[0].description }}</p>
         </div>
       </div>

@@ -29,7 +29,7 @@ export class WeatherService {
             ._http.get(this.URL + cityName + '&APPID=' + this.KEY + '&units=imperial')
             .map(response => response.json())
             .do(response =>
-                console.log('searchWeatherData: ' + JSON.stringify(response)))
+                console.log('Weather Data Object: ' + JSON.stringify(response)))
             .catch(error => {
                 console.error(error);
                 return Observable.throw(error.json())

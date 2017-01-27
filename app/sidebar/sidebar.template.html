@@ -1,33 +1,46 @@
 <h3>Saved Profiles</h3>
 <div class="row">
-
-  <article class="profile"
-                *ngFor="let profile of profiles"
-                (click)="onLoadProfile(profile)">
-      <h4>{{ profile.profileName }}</h4>
-      <p>Cities: {{ profile.cities }}</p>
-      <span class="delete"
-                  (click)="onDeleteProfile($event, profile)">X</span>
-  </article>
+  <div class="panel-group"
+           *ngFor="let profile of profiles">
+  <div class="panel panel-info">
+    <div class="panel-heading clearfix">
+      <h4>{{ profile.profileName }}
+      <button type="button"
+                     class="close"
+                     (click)="onDeleteProfile($event, profile)">
+        <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button></h4>
+              </div>
+      <div class="panel-body">
+      <p>Cities:
+        <a href="#" (click)="onLoadProfile(profile)">
+          {{ profile.cities }}
+            </a>
+          </p>
+      </div>
+    </div>
+  </div>
 
     <form (ngSubmit)="onSaveNew()">
       <h3>Add New Profile</h3>
-        <div class="input-group">
+        <div class="form-group">
           <input
               type="text"
               [(ngModel)]="newProfile.profileName"
               name="newProfileName"
               placeholder="Name"
-              class="col-xs-10 profile-input">
+              class="form-control profile-input">
           <input
               type="text"
               [(ngModel)]="newProfile.cities"
               name="newProfileCities"
-              placeholder="Add cities"
-              class="col-xs-10 profile-input">
+              placeholder="City"
+              class="form-control profile-input">
             </div>
-                <button class="btn btn-primary"
-                               type="submit">Save to Profile</button>
+                <button class="btn btn-primary profile-btn"
+                               type="submit">Save to Profile
+                </button>
             </form>
 
           <div class="well" *ngIf="weatherItem">

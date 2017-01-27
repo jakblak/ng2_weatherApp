@@ -6,11 +6,11 @@ import { WeatherService } from "./weather.service";
 @Component({
     selector: 'we-list',
     template: `
-        <section class="weather-list">
+        <div class="weather-list">
             <we-item *ngFor="let weatherItem of weatherItems"
                 [item]="weatherItem">
            </we-item>
-        </section>
+        </div>
     `
 })
 

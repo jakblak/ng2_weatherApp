@@ -6,8 +6,10 @@
 - display *well* when city name added in search bar
 
 ## To Do
+- change to FormBuilder
 - make results shared
-- bootstrap CSS 
+- success + error messages
+- refactor Templates + folders
 
 ### Notes
 - can't easily pass results from component to component

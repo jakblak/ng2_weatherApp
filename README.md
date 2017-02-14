@@ -6,8 +6,9 @@
 - display *well* when city name added in search bar
 
 ## To Do
-- change to FormBuilder
+- refactor using FormControl  +  reset form  (profile/city)
 - make results shared
+- bootstrap CSS
 - success + error messages
 - refactor Templates + folders
 

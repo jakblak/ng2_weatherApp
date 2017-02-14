@@ -13,11 +13,35 @@
 .profile-btn {
   margin-bottom: 15px;
 }
+
 .weather-list {
-  margin-top: 90px;
+  margin: 20px auto;
   width: 40%;
-  height: 80%;
 }
+
+.info {
+  color: rgba(95, 95, 95, 0.51);
+  font-weight: bold;
+}
+
+.weather-search {
+  margin: 20px auto;
+  width: 40%;
+}
+.weather-search label {
+  font-weight: bold;
+  margin-right: 20px;
+}
+.weather-search input {
+  padding: 3px 5px;
+  outline: none;
+  width: 50%;
+  margin-right: 20px;
+}
+.temperature {
+  font-size: 22px;
+}
+
 @media screen and (max-width: 768px) {
   .weather-list {
     width: 80%;

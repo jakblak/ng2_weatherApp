@@ -7,35 +7,34 @@ import { Subject } from "rxjs/Subject";
     selector: 'we-search',
     template: `
         <div class="weather-search">
-           <form (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label class="col-md-1 control-label" for="city">City:</label>
-              <div class="col-md-9">
-              <input ngControl="location" type="text" id="city"
+            <form (ngSubmit)="onSubmit()">
+              <div class="form-group">
+              <h3>Add City: </h3>
+                <input
+                    ngControl="location"
+                    type="text"
+                    id="city"
                     class="form-control input-sm"
                     (input)="onSearchLocation(input.value)"
                     required
-                    placeholder="Enter city"
+                    placeholder="City"
                     #input>
-              </div>
-               <div class="col-md-2">
-               <button class="btn btn-success" type="submit">
-                       Add City
+                </div>
+                  <button class="btn btn-success profile-btn" type="submit">
+                       Submit
                   </button>
-               </div>
-            </div>
-          </form>
-         </div>
-            <div class="col-md-12">
+            </form>
+            <div *ngIf="data.name">
                 <h4>City found: <small>{{data.name}}</small></h4>
             </div>
+        </div>
     `
 })
 export class WeatherSearchComponent implements OnInit {
     private searchStream = new Subject<string>();
     data: any = {};
 
-    constructor(private _weatherService:WeatherService) { }
+    constructor(private _weatherService: WeatherService) { }
 
     onSubmit() {
         const weatherItem: Weather = {
@@ -44,23 +43,27 @@ export class WeatherSearchComponent implements OnInit {
             temperature: this.data.main.temp
         }
         console.log(weatherItem);
-        this.city.cityName = '';
         this._weatherService.addWeatherItem(weatherItem);
     }
 
-    onSearchLocation(cityName:string) {
+    onSearchLocation(cityName: string) {
         this.searchStream
               .next(cityName);
     }
 
     ngOnInit() {
         this.searchStream
-            .debounceTime(300)
-            .distinctUntilChanged()
-            .switchMap((input:string) =>
+            .debounceTime(300)            // wait 300 milliseconds
+            .distinctUntilChanged()        // emit when the current value is different than last.
+            .switchMap((input: string) =>        // takes current observable and makes svc request
                 this._weatherService.searchWeatherData(input))
             .subscribe(
-              data => this.data = data
+              data => this.data = data,
+              err => {
+                  console.log(`Can't get weather. Error code: ${err.cod}, Message: ${err.message}`);
+                  console.log(err);
+              },
+              () => console.log(`Weather is retrived`)
             );
     }
 }

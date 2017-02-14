@@ -7,6 +7,7 @@ import { Weather } from '../weather/weather';
 @Component({
   moduleId: module.id,
   selector: 'we-sidebar',
+  styleUrls: ['sidebar.styles.css'],
   templateUrl: 'sidebar.template.html'
 })
 

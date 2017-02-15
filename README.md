@@ -8,9 +8,14 @@
 ## To Do
 - refactor using FormControl  +  reset form  (profile/city)
 - make results shared
-- bootstrap CSS
 - success + error messages
 - refactor Templates + folders
 
+### Enhancements
+- show mediator pattern
+-- subscribe to an event
+- break into modules
+
 ### Notes
-- can't easily pass results from component to component
+- explain breaking input, logging
+- add ngStorage

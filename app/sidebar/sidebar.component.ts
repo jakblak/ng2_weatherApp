@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
     profiles: Profile[];
     weatherItem: Weather[];
     weatherData: any = {};
-    newProfile = { profileName: '', cities: '' }
+    newProfile: Profile = { profileName: '', cities: '' }
 
     constructor (private _profileService: ProfileService,
                           private _weatherService: WeatherService) {}
@@ -36,10 +36,11 @@ export class SidebarComponent implements OnInit {
         console.log(profileItem);
         this._profileService.saveNewProfile(profileItem);
         this.getProfiles();
+        this.newProfile.profileName = '';
+        this.newProfile.cities = '';
     }
 
     onLoadProfile(profile: Profile) {
-        // this._weatherService.clearWeatherItems();
         this._weatherService.searchWeatherData(profile.cities)
                 .subscribe(
                     data => this.weatherItem = data

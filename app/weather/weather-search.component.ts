@@ -11,39 +11,39 @@ import { Subject } from "rxjs/Subject";
               <div class="form-group">
               <h3>Add City: </h3>
                 <input
-                    ngControl="location"
                     type="text"
-                    id="city"
+                    name="city"
+                    [(ngModel)]="city.name"
                     class="form-control input-sm"
-                    (input)="onSearchLocation(input.value)"
-                    required
+                    (input)="onSearchLocation(search.value)"
                     placeholder="City"
-                    #input>
+                    #search>
                 </div>
                   <button class="btn btn-success profile-btn" type="submit">
                        Submit
                   </button>
             </form>
-            <div *ngIf="data.name">
-                <h4>City found: <small>{{data.name}}</small></h4>
+            <div *ngIf="city.name">
+                <h4>City found: <small>{{city.name}}</small></h4>
             </div>
         </div>
     `
 })
 export class WeatherSearchComponent implements OnInit {
     private searchStream = new Subject<string>();
-    data: any = {};
+    city: any = {};
 
     constructor(private _weatherService: WeatherService) { }
 
     onSubmit() {
         const weatherItem: Weather = {
-            cityName: this.data.name,
-            description: this.data.weather[0].description,
-            temperature: this.data.main.temp
+            cityName: this.city.name,
+            description: this.city.weather[0].description,
+            temperature: this.city.main.temp
         }
         console.log(weatherItem);
         this._weatherService.addWeatherItem(weatherItem);
+        this.city.name = '';
     }
 
     onSearchLocation(cityName: string) {
@@ -58,7 +58,7 @@ export class WeatherSearchComponent implements OnInit {
             .switchMap((input: string) =>        // takes current observable and makes svc request
                 this._weatherService.searchWeatherData(input))
             .subscribe(
-              data => this.data = data,
+              city => this.city = city,
               err => {
                   console.log(`Can't get weather. Error code: ${err.cod}, Message: ${err.message}`);
                   console.log(err);

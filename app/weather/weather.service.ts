@@ -9,6 +9,7 @@ import { WEATHER_ITEMS } from "./weather.data";
 export class WeatherService {
     private URL: string = 'http://api.openweathermap.org/data/2.5/weather?q='
     private KEY: string = '16b0f73c6b8a9412f74b1b56a485e456'
+    private IMP: string = '&units=imperial'
 
     constructor (private _http: Http) { }
 
@@ -24,10 +25,10 @@ export class WeatherService {
         WEATHER_ITEMS.splice(0);
     }
 
-    searchWeatherData(cityName: string): Observable<any> {
+    searchWeatherData(cityName: string): Observable<Weather[]> {
         return this
-            ._http.get(this.URL + cityName + '&APPID=' + this.KEY + '&units=imperial')
-            .map((res: Response) => res.json())
+            ._http.get(this.URL + cityName + '&APPID=' + this.KEY + this.IMP)
+            .map((res: Response) => <Weather[]>res.json())
             .do(res => console.log('Weather Data Object: ' + JSON.stringify(res)))
             .catch(error => {
                 console.error(error);

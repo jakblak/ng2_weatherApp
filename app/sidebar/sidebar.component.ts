@@ -14,7 +14,6 @@ import { Weather } from '../weather/weather';
 export class SidebarComponent implements OnInit {
     profiles: Profile[];
     weatherItem: Weather[];
-    weatherData: any = {};
     newProfile: Profile = { profileName: '', cities: '' }
 
     constructor (private _profileService: ProfileService,

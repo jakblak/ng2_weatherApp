@@ -19,6 +19,7 @@ import { Subject } from "rxjs/Subject";
                     placeholder="City"
                     #search>
                 </div>
+                <pre>{{ search.value }}</pre>
                   <button class="btn btn-success profile-btn" type="submit">
                        Submit
                   </button>

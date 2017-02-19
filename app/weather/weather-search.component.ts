@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl } from '@angular/forms';
 import { WeatherService } from "./weather.service";
 import { Weather } from "./weather";
 import { Subject } from "rxjs/Subject";
@@ -11,15 +12,11 @@ import { Subject } from "rxjs/Subject";
               <div class="form-group">
               <h3>Add City: </h3>
                 <input
+                    [formControl]="searchInput"
                     type="text"
-                    name="city"
-                    [(ngModel)]="city.name"
                     class="form-control input-sm"
-                    (input)="onSearchLocation(search.value)"
-                    placeholder="City"
-                    #search>
+                    placeholder="City">
                 </div>
-                <pre>{{ search.value }}</pre>
                   <button class="btn btn-success profile-btn" type="submit">
                        Submit
                   </button>
@@ -31,7 +28,7 @@ import { Subject } from "rxjs/Subject";
     `
 })
 export class WeatherSearchComponent implements OnInit {
-    private searchStream = new Subject<string>();
+    searchInput: FormControl;
     city: any = {};
 
     constructor(private _weatherService: WeatherService) { }
@@ -47,13 +44,9 @@ export class WeatherSearchComponent implements OnInit {
         this.city.name = '';
     }
 
-    onSearchLocation(cityName: string) {
-        this.searchStream
-              .next(cityName);
-    }
-
     ngOnInit() {
-        this.searchStream
+        this.searchInput = new FormControl('');
+        this.searchInput.valueChanges
             .debounceTime(300)            // wait 300 milliseconds
             .distinctUntilChanged()        // emit when the current value is different than last.
             .switchMap((input: string) =>        // takes current observable and makes svc request
@@ -63,8 +56,6 @@ export class WeatherSearchComponent implements OnInit {
               err => {
                   console.log(`Can't get weather. Error code: ${err.cod}, Message: ${err.message}`);
                   console.log(err);
-              },
-              () => console.log(`Weather is retrived`)
-            );
+            });
     }
 }

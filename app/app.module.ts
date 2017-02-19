@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app.routing';
 import { HttpModule, RequestOptions } from '@angular/http';
@@ -17,6 +17,7 @@ import { WeatherItemComponent } from './weather/weather-item.component';
 @NgModule({
   imports: [ BrowserModule,
                    FormsModule,
+                   ReactiveFormsModule,
                    HttpModule,
                    AppRoutingModule
                    ],

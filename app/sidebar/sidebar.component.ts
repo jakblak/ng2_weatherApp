@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Profile } from './profile';
+import { IProfile } from './profile';
 import { WeatherService } from '../weather/weather.service';
 import { ProfileService } from './profile.service';
 import { Weather } from '../weather/weather';
@@ -12,9 +12,9 @@ import { Weather } from '../weather/weather';
 })
 
 export class SidebarComponent implements OnInit {
-    profiles: Profile[];
+    profiles: IProfile[];
     weatherItem: Weather[];
-    newProfile: Profile = { profileName: '', cities: '' }
+    newProfile: IProfile = { profileName: '', city: '' }
 
     constructor (private _profileService: ProfileService,
                           private _weatherService: WeatherService) {}
@@ -28,25 +28,25 @@ export class SidebarComponent implements OnInit {
     }
 
     onSaveNew() {
-        const profileItem: Profile = {
+        const profileItem: IProfile = {
             profileName: this.newProfile.profileName,
-            cities: this.newProfile.cities
+            city: this.newProfile.city
         }
         console.log(profileItem);
         this._profileService.saveNewProfile(profileItem);
         this.getProfiles();
         this.newProfile.profileName = '';
-        this.newProfile.cities = '';
+        this.newProfile.city = '';
     }
 
-    onLoadProfile(profile: Profile) {
-        this._weatherService.searchWeatherData(profile.cities)
-                .subscribe(
-                    data => this.weatherItem = data
-                );
+    onLoadProfile(profile: IProfile) {
+        this._weatherService.searchWeatherData(profile.city)
+              .subscribe(
+                data => this.weatherItem = data
+            );
         }
 
-    onDeleteProfile(event: Event, profile: Profile) {
+    onDeleteProfile(event: Event, profile: IProfile) {
         event.stopPropagation();
         this._profileService.deleteProfile(profile);
     }

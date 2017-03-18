@@ -1,4 +1,4 @@
-export interface Profile {
+export interface IProfile {
   profileName: string;
-  cities: string;
+  city: string;
 }

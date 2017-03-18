@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   appName: string = "Angular 2 Weather App";
-
 }

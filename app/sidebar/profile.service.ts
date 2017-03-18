@@ -1,13 +1,13 @@
-import { Profile } from './profile';
+import { IProfile } from './profile';
 
 export class ProfileService {
-    private profiles: Profile[] = [
-        { profileName: '1', cities: 'New York' },
-        { profileName: '2', cities: 'London' },
-        { profileName: '3', cities: 'Berlin' }
+    private profiles: IProfile[] = [
+        { profileName: '1', city: 'New York' },
+        { profileName: '2', city: 'London' },
+        { profileName: '3', city: 'Berlin' }
     ];
 
-    saveNewProfile(profile: Profile) {
+    saveNewProfile(profile: IProfile) {
         return this.profiles.push(profile);
     }
 
@@ -15,7 +15,7 @@ export class ProfileService {
         return this.profiles;
     }
 
-    deleteProfile(profile: Profile) {
+    deleteProfile(profile: IProfile) {
         this.profiles.splice(this.profiles.indexOf(profile), 1);
     }
 }

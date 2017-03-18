@@ -13,9 +13,9 @@
         </button></h4>
               </div>
       <div class="panel-body">
-      <p>Cities:
+      <p>City:
         <a href="#" (click)="onLoadProfile(profile)">
-          {{ profile.cities }}
+          {{ profile.city }}
             </a>
           </p>
       </div>
@@ -33,7 +33,7 @@
               class="form-control profile-input">
           <input
               type="text"
-              [(ngModel)]="newProfile.cities"
+              [(ngModel)]="newProfile.city"
               name="profileCity"
               placeholder="City"
               class="form-control profile-input">

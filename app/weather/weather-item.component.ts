@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Weather } from "./weather";
+import { IWeather } from "./weather";
 
 @Component({
     selector: 'we-item',
@@ -14,5 +14,6 @@ import { Weather } from "./weather";
     `
 })
 export class WeatherItemComponent {
-    @Input('item') weatherItem: Weather;
+    // @Input('item') weatherItem: Weather;
+    @Input() weatherItem: IWeather;
 }

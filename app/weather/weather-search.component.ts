@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl } from '@angular/forms';
+import { FormControl } from "@angular/forms";
 import { WeatherService } from "./weather.service";
-import { Weather } from "./weather";
-import { Subject } from "rxjs/Subject";
+import { IWeather } from "./weather";
 
 @Component({
     selector: 'we-search',
@@ -28,34 +27,42 @@ import { Subject } from "rxjs/Subject";
     `
 })
 export class WeatherSearchComponent implements OnInit {
-    searchInput: FormControl;
+    searchInput: FormControl = new FormControl('');
     city: any = {};
 
     constructor(private _weatherService: WeatherService) { }
 
     onSubmit() {
-        const weatherItem: Weather = {
+        const weatherItem: IWeather = {
             cityName: this.city.name,
             description: this.city.weather[0].description,
             temperature: this.city.main.temp
         }
         console.log(weatherItem);
-        this._weatherService.addWeatherItem(weatherItem);
-        this.city.name = '';
+        this.addWeatherItem(weatherItem);
+        // this._weatherService.addWeatherItem(weatherItem);
+        // this.searchInput.reset();
     }
 
     ngOnInit() {
-        this.searchInput = new FormControl('');
         this.searchInput.valueChanges
-            .debounceTime(300)            // wait 300 milliseconds
+            .debounceTime(400)            // wait 400 milliseconds, type 2 letters
             .distinctUntilChanged()        // emit when the current value is different than last.
-            .switchMap((input: string) =>        // takes current observable and makes svc request
+             // takes current observable and makes request, cancels any pending
+            .switchMap((input: string) =>
                 this._weatherService.searchWeatherData(input))
             .subscribe(
               city => this.city = city,
               err => {
                   console.log(`Can't get weather. Error code: ${err.cod}, Message: ${err.message}`);
                   console.log(err);
-            });
+              });
     }
+
+    addWeatherItem(item: IWeather) {
+        this._weatherService.addWeatherItem(item);
+        // this.searchInput = new FormControl('');
+        this.searchInput.reset();
+    }
+
 }

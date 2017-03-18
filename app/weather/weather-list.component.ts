@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { WeatherItemComponent } from "./weather-item.component";
-import { Weather } from "./weather";
+import { IWeather } from "./weather";
 import { WeatherService } from "./weather.service";
 
 @Component({
@@ -8,18 +7,22 @@ import { WeatherService } from "./weather.service";
     template: `
         <div class="weather-list">
             <we-item *ngFor="let weatherItem of weatherItems"
-                [item]="weatherItem">
+                [weatherItem]="weatherItem">
            </we-item>
         </div>
     `
 })
 
 export class WeatherListComponent implements OnInit {
-    weatherItems: Weather[];
+    weatherItems: IWeather[];
 
     constructor(private _weatherService: WeatherService) {}
 
     ngOnInit():void {
+        this.getWeatherItems();
+    }
+
+    getWeatherItems(): void {
         this.weatherItems = this._weatherService.getWeatherItems();
     }
 }
